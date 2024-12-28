@@ -1,0 +1,17 @@
+services:
+  sentense-transformer:
+    image: michaelf34/infinity:0.0.61
+    ports:
+      - 7997:7997
+    command:
+      ["v2", "--model-id", "jinaai/jina-embeddings-v3", "--device", "cuda"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    runtime: nvidia
+    volumes:
+      - ./.infinity_cache:/app/.cache
